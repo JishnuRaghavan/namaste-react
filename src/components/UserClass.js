@@ -6,31 +6,43 @@ class UserClass extends React.Component {
         super(props);
 
         this.state  =   {
-            count   :   0,
-            count2  :   1
+            name:"dummy name",
+            location:"dummy location",
+            avatar:""
         }
+
+        // console.log(this.props.name+' constructor');
+    }
+
+    componentDidMount(){
+        this.timer =   setInterval(() => {
+            console.log('namaste react');
+        }, 1000);
+        console.log('child- component did mount')
+    }
+
+    componentDidUpdate (prevProps,prevState){
+
+        console.log('component did update');
+        if(this.state.name !== prevState.name){
+            console.log('component did update locally')
+        }
+    }
+
+    componentWillUnmount (){
+        console.log('component unmounted');
+        clearInterval(this.timer);
     }
 
     render(){
 
-        const {name,location}   =   this.props;
-        const {count,count2}    =   this.state;
+        console.log("child render");
+
         return (
-                <div className="user-card">
-                <h1>Count       :   {count}</h1>
-                <button onClick={()=>{
-                    this.setState({
-                        count   :   this.state.count+1
-                    })
-                }}>increase</button>
-                <h2>Count2      :   {count2}</h2>
-                <button onClick={()=>{
-                    this.setState({
-                        count2:this.state.count2+1
-                    })
-                }}>increase</button>
-                <h2>Name        :   {name}</h2>
-                <h3>Location    :   {location}</h3>
+            <div className="user-card">
+                <img src={this.state.avatar} alt='profile picture'/>
+                <h2>Name        :   {this.state.name}</h2>
+                <h3>Location    :   {this.state.location}</h3>
                 <h4>Contact     :   @jishnu.raghavan</h4>
             </div>
         )
