@@ -18,10 +18,23 @@ const RestaurantCard    =   (props)=>{
               </div>
               <h4 style={{margin:0,padding:0}}>{resData.info.sla.deliveryTime} minutes</h4>
             </div>
-            <h4 style={{padding:0,margin:0}}>{cuisines.join(',')}</h4>
+            <div className="flex flex-wrap">
+              <h4>{cuisines.join(',')}</h4>
+            </div>
 
         </div>
     )
+}
+
+export const withPromotedLabel = (RestaurantCard)=>{
+  return (props)=>{
+    return (
+      <div>
+        <label className="absolute before:z-[-1] before:absolute before:bg-blue-700 before:ml-4 before:h-8 before:w-8 before:content[''] before:rotate-45 before:origin-top-left after:content-['Promoted'] after:bg-blue-600 after:absolute after:h-8 after:ml-[-6px] after:mt-[-8px] after:text-center after:w-40 after:text-white"></label>
+        <RestaurantCard {...props}/>
+      </div>
+    )
+  }
 }
 
 export default RestaurantCard;
