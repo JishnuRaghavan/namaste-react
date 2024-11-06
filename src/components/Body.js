@@ -28,7 +28,7 @@ const Body = ()=>{
   const onlineStatus  = useOnlineStatus();
 
   if(onlineStatus == false)return<h1>looks like you are offline!!! please check your internet connection.</h1>
-    return filteredRestaurents.length === 0 ? <Shimmer /> : (
+    return filteredRestaurents.length == 0 ? <Shimmer /> : (
         <div className="body">
             <div className="flex items-center">
               <div className="search m-4 p-4">
