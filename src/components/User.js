@@ -1,7 +1,9 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import UserContext from "../utils/UserContext";
 
 const User  =   (props)=>{
 
+    const {loggedInUser}  =   useContext(UserContext);
     const [count,setCount] =   useState(0);
 
     useEffect(()=>{
@@ -18,7 +20,7 @@ const User  =   (props)=>{
     return (
         <div className="user-card">
             <h1>count       :   {count}</h1>
-            <h2>Name        :   {props.name}</h2>
+            <h2>Name        :   {loggedInUser}</h2>
             <h3>Location    :   {props.location}</h3>
             <h4>Contact     :   @jishnu.raghavan</h4>
             <button onClick={()=>{

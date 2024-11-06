@@ -1,10 +1,14 @@
 import RestaurantCard,{withPromotedLabel} from "./RestaurantCard";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Shimmer from "./Shimmer";
 import useOnlineStatus from "../utils/useOnlineStatus";
+import UserContext from "../utils/UserContext";
 
 const Body = ()=>{
+
+
+  const {setUserName,loggedInUser} = useContext(UserContext);
   const [listOfRestaurant,setListOfRestaurant]  = useState([]);
   const [filteredRestaurents,setFilteredRestaurents]  = useState([]);
   const [searchText,setSearchText]  = useState("");
@@ -21,8 +25,8 @@ const Body = ()=>{
 
     const json  = await data.json();
 
-    setListOfRestaurant(json?.data?.cards[3]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
-    setFilteredRestaurents(json?.data?.cards[3]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
+    setListOfRestaurant(json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
+    setFilteredRestaurents(json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
   }
 
   const onlineStatus  = useOnlineStatus();
@@ -39,14 +43,17 @@ const Body = ()=>{
                 }}>search</button>
               </div>
               <div className="m-4 p-4 flex items-center">
-              <button className="px-4 py-2 bg-gray-100 rounded-lg hover:bg-gray-200 hover:shadow-lg" onClick={()=>{
-                const filteredList  = listOfRestaurant.filter(res=>res.info.avgRating > 4.3);
-                setFilteredRestaurents(filteredList);
-                console.log(filteredList);
-              }}>Top Rated Restaurants</button>
+                {/* <button className="px-4 py-2 bg-gray-100 rounded-lg hover:bg-gray-200 hover:shadow-lg" onClick={()=>{
+                  const filteredList  = listOfRestaurant.filter(res=>res.info.avgRating > 4.3);
+                  setFilteredRestaurents(filteredList);
+                  console.log(filteredList);
+                }}>Top Rated Restaurants
+                </button> */}
+                <label>User Name </label>
+                <input className="border border-black" value={loggedInUser} onChange={e=>setUserName(e.target.value)}/>
               </div>
             </div>
-            <div className="flex flex-wrap justify-between">
+            <div className="flex flex-wrap justify-around">
               {
                 filteredRestaurents.map((restaurant) =>(
                   <Link key={restaurant.info.id} to={'/restaurants/'+restaurant.info.id}>
